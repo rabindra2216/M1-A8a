@@ -111,7 +111,7 @@ app.get("/purchases",function(req,res){
   app.get("/totalPurchase/shop/:id",function(req,res){
     let id=+req.params.id;
     let arr=purchases.filter(st=>st.shopId===id);
-    let arr1=products.map(st=>{return{productId:st.productId,totalPurchase:arr.reduce((acc,curr)=>curr.productid===st.productId?acc+1:acc,0)}});
+    let arr1=products.map(st=>{return{productId:st.productId,totalPurchase:arr.reduce((acc,curr)=>curr.productid===st.productId?acc+(+curr.quantity):acc,0)}});
     console.log(arr)
     res.send(arr1);
   });
@@ -119,7 +119,7 @@ app.get("/purchases",function(req,res){
   app.get("/totalPurchase/product/:id",function(req,res){
     let id=+req.params.id;
     let arr=purchases.filter(st=>st.productid===id);
-    let arr1=shops.map(st=>{return{shopId:st.shopId,totalPurchase:arr.reduce((acc,curr)=>curr.shopId===st.shopId?acc+1:acc,0)}});
+    let arr1=shops.map(st=>{return{shopId:st.shopId,totalPurchase:arr.reduce((acc,curr)=>curr.shopId===st.shopId?acc+(curr.quantity):acc,0)}});
     console.log(arr)
     res.send(arr1);
   });
